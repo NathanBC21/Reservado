@@ -40,6 +40,12 @@
                         <li class="nav-item">
                             <a href="{{ url('equipamento') }}" class="nav-link">Equipamentos</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ url('cliente') }}" class="nav-link">Clientes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('reserva') }}" class="nav-link">Reservas</a>
+                        </li>
                         @endauth
                     </ul>
 

@@ -6,9 +6,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Lista de Clientes
-                        <a href="{{ url('cliente/create') }}" class="btn btn-success btn-sm float-end">
-                            Novo Cliente
+                        Lista de Reserva
+                        <a href="{{ url('reserva/create') }}" class="btn btn-success btn-sm float-end">
+                            Novo Reserva
                         </a>
                     </div>
                     <div class="card-body">
@@ -22,23 +22,23 @@
                                 <tr>
                                     <th>Código</th>
                                     <th>Nome</th>
-                                    <th>Endereço</th>
-                                    <th>Fone</th>
+                                    <th>Tipo</th>
+                                    <th>Data Aquisição</th>
                                     <th>Opções</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($clientes as $cliente)
+                                @forelse ($reservas as $reserva)
                                     <tr>
-                                        <td>{{ $cliente->id }}</td>
-                                        <td>{{ $cliente->nome }}</td>
-                                        <td>{{ $cliente->endereco }}</td>
-                                        <td>{{ $cliente->fone }}</td>
+                                        <td>{{ $reserva->id }}</td>
+                                        <td>{{ $reserva->nome }}</td>
+                                        <td>{{ $reserva->tipo->titulo }}</td>
+                                        <td>{{ $reserva->data_aquisicao }}</td>
                                         <td>
-                                            <a href="{{ url('cliente/' . $cliente->id) }}" class="btn btn-primary btn-sm">
+                                            <a href="{{ url('reserva/' . $reserva->id) }}" class="btn btn-primary btn-sm">
                                                 Editar
                                             </a>
-                                            {!! Form::open(['method' => 'DELETE', 'url' => 'cliente/' . $cliente->id, 'style' => 'display:inline']) !!}
+                                            {!! Form::open(['method' => 'DELETE', 'url' => 'reserva/' . $reserva->id, 'style' => 'display:inline']) !!}
                                             <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
                                             {!! Form::close() !!}
                                         </td>
@@ -53,7 +53,7 @@
                             </tbody>
                         </table>
                         <div class="pagination justify-content-center">
-                            {{ $clientes->links() }}
+                            {{ $reservas->links() }}
                         </div>
                     </div>
                 </div>

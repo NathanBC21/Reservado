@@ -1,6 +1,8 @@
 
 <?php
 
+use App\Http\Controllers\ReservasController;
+use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\TiposController;
 use App\Http\Controllers\LocaisController;
 use App\Http\Controllers\EquipamentosController;
@@ -35,3 +37,4 @@ Route::delete('/tipo/{tipo_id}', [TiposController::class, 'deletar']);
 Route::resource('local', LocaisController::class);
 Route::resource('equipamento', EquipamentosController::class);
 Route::resource('cliente', ClientesController::class);
+Route::resource('reserva', ReservasController::class);

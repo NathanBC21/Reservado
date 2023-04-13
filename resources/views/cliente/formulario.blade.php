@@ -6,9 +6,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Dados do Local
-                        <a href="{{ url('local') }}" class="btn btn-success btn-sm float-end">
-                            Listar Locais
+                        Dados do Cliente
+                        <a href="{{ url('cliente') }}" class="btn btn-success btn-sm float-end">
+                            Listar Clientes
                         </a>
                     </div>
                     <div class="card-body">
@@ -23,12 +23,12 @@
                             </div>
                         @endif
 
-                        @if(Route::is('local.show'))
-                            {!! Form::model($local,
+                        @if(Route::is('cliente.show'))
+                            {!! Form::model($cliente,
                                             ['method'=>'PATCH',
-                                            'url'=>'local/'.$local->id]) !!}
+                                            'url'=>'cliente/'.$cliente->id]) !!}
                         @else
-                            {!! Form::open(['method'=>'POST', 'url'=>'local']) !!}
+                            {!! Form::open(['method'=>'POST', 'url'=>'cliente']) !!}
                         @endif
                         {!! Form::label('nome', 'Nome') !!}
                         {!! Form::input('text', 'nome',
@@ -45,6 +45,13 @@
                                         'placeholder'=>'Endereço',
                                         'required',
                                         'maxlength'=>150]) !!}
+                        {!! Form::label('fone', 'Fone') !!}
+                        {!! Form::input('text', 'fone',
+                                        null,
+                                        ['class'=>'form-control',
+                                        'placeholder'=>'Fone',
+                                        'required',
+                                        'maxlength'=>20]) !!}
                         {!! Form::submit('Salvar',
                                         ['class'=>'float-end btn btn-primary mt-3']) !!}
                         {!! Form::close() !!}
