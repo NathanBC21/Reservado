@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipamento;
 use App\Models\Local;
+use App\Models\Cliente;
 use App\Models\Reserva;
-use App\Models\Tipo;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Redirect;
@@ -31,9 +31,10 @@ class ReservasController extends Controller
      */
     public function create()
     {
-        $equipamentos = Equipamento::select('id', 'nome', 'data_aquisicao')->pluck('id', 'nome', 'data_aquisicao');
-        $locais = Local::select('id', 'nome', 'endereco')->pluck('id', 'nome', 'endereco');
-        return view('reserva.formulario', compact('locais', 'equipamentos'));
+        $equipamentos = Equipamento::select('id', 'nome')->pluck('id', 'nome');
+        $locais = Local::select('id', 'nome')->pluck('id', 'nome');
+        $clientes = Cliente::select('id', 'nome')->pluck('id', 'nome');
+        return view('reserva.formulario', compact('locais', 'equipamentos', 'clientes'));
     }
 
     /**
@@ -44,14 +45,18 @@ class ReservasController extends Controller
         $reserva = new Reserva();
         $reserva->fill($request->all());
         if ($reserva->save()){
-            $tipo = 'mensagem_sucesso';
+            $equipamentos = 'mensagem_sucesso';
+            $locais = 'mensagem_sucesso';
+            $clientes = 'mensagem_sucesso';
             $msg = "Reserva salvo!";
         } else {
-            $tipo = 'mensagem_erro';
+            $equipamentos = 'mensagem_erro';
+            $locais = 'mensagem_erro';
+            $clientes = 'mensagem_erro';
             $msg = 'Deu erro';
         }
         return Redirect::to('reserva/create')
-                    ->with($tipo, $msg);
+                    ->with($equipamentos, $msg)->with($locais, $msg)->with($clientes, $msg);
     }
 
     /**
@@ -60,8 +65,8 @@ class ReservasController extends Controller
     public function show(Reserva $reserva)
     {
         $reserva = Reserva::findOrFail($reserva->id);
-        $tipos = Tipo::select('titulo', 'id')->pluck('titulo', 'id');
-        return view('reserva.formulario', compact('tipos', 'reserva'));
+        $equipamentos = Equipamento::select('id', 'nome', 'data_aquisicao')->pluck('id', 'nome', 'data_aquisicao');
+        return view('reserva.formulario', compact('equipamentos', 'reserva'));
     }
 
     /**
@@ -80,14 +85,14 @@ class ReservasController extends Controller
         $reserva = Reserva::findOrFAil($reserva->id);
         $reserva->fill($request->all());
         if ($reserva->save()){
-            $tipo = 'mensagem_sucesso';
+            $equipamentos = 'mensagem_sucesso';
             $msg = "Reserva alterado!";
         } else {
-            $tipo = 'mensagem_erro';
+            $equipamentos = 'mensagem_erro';
             $msg = 'Deu erro';
         }
         return Redirect::to('reserva/'.$reserva->id)
-                    ->with($tipo, $msg);
+                    ->with($equipamentos, $msg);
     }
 
     /**
@@ -97,12 +102,12 @@ class ReservasController extends Controller
     {
         $reserva = Reserva::findOrFAil($reserva->id);
         if ($reserva->delete()){
-            $tipo = 'mensagem_sucesso';
+            $equipamentos = 'mensagem_sucesso';
             $msg = "Reserva removido!";
         } else {
-            $tipo = 'mensagem_erro';
+            $equipamentos = 'mensagem_erro';
             $msg = 'Deu erro';
         }
-        return Redirect::to('reserva')->with($tipo, $msg);
+        return Redirect::to('reserva')->with($equipamentos, $msg);
     }
 }

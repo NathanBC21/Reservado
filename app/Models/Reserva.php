@@ -13,7 +13,20 @@ class Reserva extends Model
 
     public function equipamento(){
         return $this->belongsTo(Equipamento::class);
+
     }
 
-    
+    public function local(){
+        return $this->belongsTo(Local::class);
+
+    }
+
+    public function cliente(){
+        return $this->belongsTo(cliente::class);
+
+    }
+
+
+
+
 }

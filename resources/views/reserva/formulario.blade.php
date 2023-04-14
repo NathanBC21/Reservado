@@ -45,8 +45,21 @@
                                          ['class'=>'form-control',
                                          'placeholder'=>'Selecione o local',
                                          'required']) !!}
+                        {!! Form::label('cliente_id', "Cliente") !!}
+                        {!! Form::select('cliente_id',
+                                         $clientes,
+                                         null,
+                                         ['class'=>'form-control',
+                                         'placeholder'=>'Selecione o cliente',
+                                         'required']) !!}
                         {!! Form::label('data', 'Data') !!}
                         {!! Form::input('date', 'data',
+                                        null,
+                                        ['class'=>'form-control',
+                                        'placeholder'=>'Data',
+                                        'required']) !!}
+                        {!! Form::label('horario', 'Horario') !!}
+                        {!! Form::input('time', 'horario',
                                         null,
                                         ['class'=>'form-control',
                                         'placeholder'=>'Data',
