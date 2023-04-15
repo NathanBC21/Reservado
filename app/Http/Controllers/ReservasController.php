@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reserva;
 use App\Models\Equipamento;
 use App\Models\Local;
 use App\Models\Cliente;
-use App\Models\Reserva;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Redirect;
@@ -22,7 +22,7 @@ class ReservasController extends Controller
         $reservas = Reserva::with('equipamento')->with('local')->with('cliente')->paginate(25);
         Paginator::useBootstrap();
 
-        return view('reserva.formulario', compact('reservas'));
+        return view('reserva.lista', compact('reservas'));
 
     }
 
@@ -65,8 +65,10 @@ class ReservasController extends Controller
     public function show(Reserva $reserva)
     {
         $reserva = Reserva::findOrFail($reserva->id);
-        $equipamentos = Equipamento::select('id', 'nome', 'data_aquisicao')->pluck('id', 'nome', 'data_aquisicao');
-        return view('reserva.formulario', compact('equipamentos', 'reserva'));
+        $equipamentos = Equipamento::select('id', 'nome')->pluck('id', 'nome');
+        $locais = Local::select('id', 'nome')->pluck('id', 'nome');
+        $clientes = Cliente::select('id', 'nome')->pluck('id', 'nome');
+        return view('reserva.formulario', compact('equipamentos', 'locais', 'clientes', 'reserva'));
     }
 
     /**
@@ -86,13 +88,17 @@ class ReservasController extends Controller
         $reserva->fill($request->all());
         if ($reserva->save()){
             $equipamentos = 'mensagem_sucesso';
+            $locais = 'mensagem_sucesso';
+            $clientes = 'mensagem_sucesso';
             $msg = "Reserva alterado!";
         } else {
             $equipamentos = 'mensagem_erro';
+            $locais = 'mensagem_erro';
+            $clientes = 'mensagem_erro';
             $msg = 'Deu erro';
         }
         return Redirect::to('reserva/'.$reserva->id)
-                    ->with($equipamentos, $msg);
+                    ->with($equipamentos, $msg)->with($locais, $msg)->with($clientes, $msg);
     }
 
     /**
@@ -103,11 +109,16 @@ class ReservasController extends Controller
         $reserva = Reserva::findOrFAil($reserva->id);
         if ($reserva->delete()){
             $equipamentos = 'mensagem_sucesso';
+            $locais = 'mensagem_sucesso';
+            $clientes = 'mensagem_sucesso';
             $msg = "Reserva removido!";
         } else {
             $equipamentos = 'mensagem_erro';
+            $locais = 'mensagem_erro';
+            $clientes = 'mensagem_erro';
             $msg = 'Deu erro';
         }
-        return Redirect::to('reserva')->with($equipamentos, $msg);
+        return Redirect::to('reserva')
+            ->with($equipamentos, $msg)->with($locais, $msg)->with($clientes, $msg);
     }
 }

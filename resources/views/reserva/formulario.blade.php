@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Dados do Reserva
+                        Dados da Reserva
                         <a href="{{ url('reserva') }}" class="btn btn-success btn-sm float-end">
                             Listar Reservas
                         </a>

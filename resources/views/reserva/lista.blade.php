@@ -8,7 +8,7 @@
                     <div class="card-header">
                         Lista de Reserva
                         <a href="{{ url('reserva/create') }}" class="btn btn-success btn-sm float-end">
-                            Novo Reserva
+                            Nova Reserva
                         </a>
                     </div>
                     <div class="card-body">
@@ -21,19 +21,20 @@
                             <thead>
                                 <tr>
                                     <th>Código</th>
-                                    <th>Nome</th>
-                                    <th>Tipo</th>
-                                    <th>Data Aquisição</th>
-                                    <th>Opções</th>
+                                    <th>Equipamento</th>
+                                    <th>local</th>
+                                    <th>cliente</th>
+                                    <th>data</th>
+                                    <th>horario</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($reservas as $reserva)
                                     <tr>
                                         <td>{{ $reserva->id }}</td>
-                                        <td>{{ $reserva->nome }}</td>
-                                        <td>{{ $reserva->tipo->titulo }}</td>
-                                        <td>{{ $reserva->data_aquisicao }}</td>
+                                        <td>{{ $reserva->equipamento_id}}</td>
+                                        <td>{{ $reserva->local_id}}</td>
+                                        <td>{{ $reserva->cliente_id}}</td>
                                         <td>
                                             <a href="{{ url('reserva/' . $reserva->id) }}" class="btn btn-primary btn-sm">
                                                 Editar
