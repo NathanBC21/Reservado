@@ -32,9 +32,9 @@ class ReservasController extends Controller
      */
     public function create()
     {
-        $equipamentos = Equipamento::select('nome', 'id')->pluck('nome', 'id');
-        $locais = Local::select('nome', 'id')->pluck('nome', 'id');
-        $clientes = Cliente::select('nome', 'id')->pluck('nome', 'id');
+        $equipamentos = Equipamento::select('nome','id')->pluck('nome','id');
+        $locais = Local::select('nome','id')->pluck('nome','id');
+        $clientes = Cliente::select('nome','id')->pluck('nome','id');
         return view('reserva.formulario', compact('equipamentos', 'locais', 'clientes'));
     }
 
@@ -66,9 +66,9 @@ class ReservasController extends Controller
     public function show(Reserva $reserva)
     {
         $reserva = Reserva::findOrFail($reserva->id);
-        $equipamentos = Equipamento::select('nome', 'id')->pluck('nome', 'id');
-        $locais = Local::select('nome', 'id')->pluck('nome', 'id');
-        $clientes = Cliente::select('nome', 'id')->pluck('nome', 'id');
+        $equipamentos = Equipamento::select('nome','id')->pluck('nome','id');
+        $locais = Local::select('nome','id')->pluck('nome','id');
+        $clientes = Cliente::select('nome','id')->pluck('nome','id');
         return view('reserva.formulario', compact('equipamentos', 'locais', 'clientes', 'reserva'));
     }
 

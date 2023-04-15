@@ -34,9 +34,9 @@
                                 @forelse ($reservas as $reserva)
                                     <tr>
                                         <td>{{ $reserva->id }}</td>
-                                        <td>{{ $reserva->equipamento_id }}</td>
-                                        <td>{{ $reserva->local_id }}</td>
-                                        <td>{{ $reserva->cliente_id }}</td>
+                                        <td>{{ $reserva->equipamento->nome}}</td>
+                                        <td>{{ $reserva->local->nome}}</td>
+                                        <td>{{ $reserva->cliente->nome}}</td>
                                         <td>{{ $reserva->data }}</td>
                                         <td>{{ $reserva->horario }}</td>
                                         <td>{{ $reserva->devolucao }}</td>

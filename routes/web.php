@@ -39,3 +39,5 @@ Route::resource('equipamento', EquipamentosController::class);
 Route::resource('cliente', ClientesController::class);
 Route::post('/reserva/devolver/{reserva_id}', [ReservasController::class, 'devolver']);
 Route::resource('reserva', ReservasController::class);
+
+
