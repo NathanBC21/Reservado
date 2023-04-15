@@ -6,6 +6,7 @@ use App\Models\Reserva;
 use App\Models\Equipamento;
 use App\Models\Local;
 use App\Models\Cliente;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Redirect;
@@ -31,10 +32,10 @@ class ReservasController extends Controller
      */
     public function create()
     {
-        $equipamentos = Equipamento::select('id', 'nome')->pluck('id', 'nome');
-        $locais = Local::select('id', 'nome')->pluck('id', 'nome');
-        $clientes = Cliente::select('id', 'nome')->pluck('id', 'nome');
-        return view('reserva.formulario', compact('locais', 'equipamentos', 'clientes'));
+        $equipamentos = Equipamento::select('nome', 'id')->pluck('nome', 'id');
+        $locais = Local::select('nome', 'id')->pluck('nome', 'id');
+        $clientes = Cliente::select('nome', 'id')->pluck('nome', 'id');
+        return view('reserva.formulario', compact('equipamentos', 'locais', 'clientes'));
     }
 
     /**
@@ -65,9 +66,9 @@ class ReservasController extends Controller
     public function show(Reserva $reserva)
     {
         $reserva = Reserva::findOrFail($reserva->id);
-        $equipamentos = Equipamento::select('id', 'nome')->pluck('id', 'nome');
-        $locais = Local::select('id', 'nome')->pluck('id', 'nome');
-        $clientes = Cliente::select('id', 'nome')->pluck('id', 'nome');
+        $equipamentos = Equipamento::select('nome', 'id')->pluck('nome', 'id');
+        $locais = Local::select('nome', 'id')->pluck('nome', 'id');
+        $clientes = Cliente::select('nome', 'id')->pluck('nome', 'id');
         return view('reserva.formulario', compact('equipamentos', 'locais', 'clientes', 'reserva'));
     }
 
@@ -120,5 +121,19 @@ class ReservasController extends Controller
         }
         return Redirect::to('reserva')
             ->with($equipamentos, $msg)->with($locais, $msg)->with($clientes, $msg);
+    }
+
+    public function devolver($reserva_id){
+        $reserva = Reserva::findOrFail($reserva_id);
+        $reserva->devolucao = Carbon::now('America/Sao_Paulo');
+        if ($reserva->save()){
+            $tipo = 'mensagem_sucesso';
+            $msg = 'Reserva alterado!';
+        }
+        else{
+            $tipo = 'mensagem_erro';
+            $msg = 'Deu erro!';
+        }
+        return Redirect::to('reserva')->with($tipo, $msg);
     }
 }

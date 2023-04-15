@@ -22,6 +22,7 @@
                                 <tr>
                                     <th>Código</th>
                                     <th>Nome</th>
+                                    <th>endereco</th>
                                     <th>Opções</th>
                                 </tr>
                             </thead>
@@ -30,6 +31,7 @@
                                     <tr>
                                         <td>{{ $local->id }}</td>
                                         <td>{{ $local->nome }}</td>
+                                        <td>{{ $local->endereco }}</td>
                                         <td>
                                             <a href="{{ url('local/' . $local->id) }}" class="btn btn-primary btn-sm">
                                                 Editar

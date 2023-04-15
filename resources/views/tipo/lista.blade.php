@@ -22,6 +22,7 @@
                                 <tr>
                                     <th>Código</th>
                                     <th>Titulo</th>
+                                    <th>icon</th>
                                     <th>Opções</th>
                                 </tr>
                             </thead>
@@ -30,6 +31,7 @@
                                     <tr>
                                         <td>{{ $tipo->id }}</td>
                                         <td>{{ $tipo->titulo }}</td>
+                                        <td>{{ $tipo->icon }}</td>
                                         <td>
                                             <a href="{{ url('tipo/' . $tipo->id) }}" class="btn btn-primary btn-sm">
                                                 Editar

@@ -37,4 +37,5 @@ Route::delete('/tipo/{tipo_id}', [TiposController::class, 'deletar']);
 Route::resource('local', LocaisController::class);
 Route::resource('equipamento', EquipamentosController::class);
 Route::resource('cliente', ClientesController::class);
+Route::post('/reserva/devolver/{reserva_id}', [ReservasController::class, 'devolver']);
 Route::resource('reserva', ReservasController::class);

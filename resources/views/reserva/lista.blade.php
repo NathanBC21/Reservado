@@ -23,18 +23,23 @@
                                     <th>Código</th>
                                     <th>Equipamento</th>
                                     <th>local</th>
-                                    <th>cliente</th>
-                                    <th>data</th>
-                                    <th>horario</th>
+                                    <th>Cliente</th>
+                                    <th>Data</th>
+                                    <th>Horario</th>
+                                    <th>Devolução</th>
+                                    <th>Opções</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($reservas as $reserva)
                                     <tr>
                                         <td>{{ $reserva->id }}</td>
-                                        <td>{{ $reserva->equipamento_id}}</td>
-                                        <td>{{ $reserva->local_id}}</td>
-                                        <td>{{ $reserva->cliente_id}}</td>
+                                        <td>{{ $reserva->equipamento_id }}</td>
+                                        <td>{{ $reserva->local_id }}</td>
+                                        <td>{{ $reserva->cliente_id }}</td>
+                                        <td>{{ $reserva->data }}</td>
+                                        <td>{{ $reserva->horario }}</td>
+                                        <td>{{ $reserva->devolucao }}</td>
                                         <td>
                                             <a href="{{ url('reserva/' . $reserva->id) }}" class="btn btn-primary btn-sm">
                                                 Editar
@@ -42,6 +47,9 @@
                                             {!! Form::open(['method' => 'DELETE', 'url' => 'reserva/' . $reserva->id, 'style' => 'display:inline']) !!}
                                             <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
                                             {!! Form::close() !!}
+                                            {!! Form::open(['method' => 'POST', 'url' => 'reserva/devolver/'. $reserva->id, 'style' => 'display:inline']) !!}
+                                            <button type="submit" Class="btn btn-info btn-sm">Devolver</button>
+                                            {!! Form::close()!!}
                                         </td>
                                     </tr>
                                 @empty
