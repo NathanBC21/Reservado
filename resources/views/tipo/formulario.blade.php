@@ -30,7 +30,7 @@
                                             'url'=>'tipo/'.$tipo->id]) !!}
                             <div class="text-center">
                                 <img
-                                src="{{ url('/') }}/uploads/tipos/{{ $tipo->icone }}"
+                                src="{{ url('/') }}/uploads/tipos/{{ $tipo->icon }}"
                                 alt="{{ $tipo->titulo }}"
                                 title="{{ $tipo->titulo }}"
                                 class="img-thumbnail"
@@ -50,7 +50,7 @@
                         {!! Form::label('icon', 'Icone') !!}
                         {!! Form::file('icon',
                                         ['class'=>'form-control btn=sm',
-                                        'required',]) !!}
+                                        ]) !!}
                         {!! Form::submit('Salvar',
                                         ['class'=>'float-end btn btn-primary mt-3']) !!}
                         {!! Form::close() !!}
