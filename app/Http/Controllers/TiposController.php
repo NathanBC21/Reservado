@@ -6,6 +6,7 @@ use App\Models\Tipo;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Redirect;
+use Intervention\Image\Facades\Image;
 
 class TiposController extends Controller
 {
@@ -29,8 +30,23 @@ class TiposController extends Controller
     }
 
     public function store(Request $request){
+        $this->validate($request, ['image.*', 'mimes:jpeg, jpg, gif, png']);
+        $pasta = public_path('/uploads/tipos');
+        if ($request->hasFile('icon')){
+            $foto = $request->file('icon');
+            $miniatura = Image::make($foto->path());
+            $nomeArquivo = $request->file('icon')->getClientOriginalName();
+            if(!$miniatura->resize(500,500, function($constraint){
+                $constraint->aspectRatio();
+            })->save($pasta.'/'.$nomeArquivo)){
+                $nomeArquivo = "semfoto.jpg";
+            }
+        }else{
+            $nomeArquivo = 'semfoto.jpg';
+        }
         $tipo = new Tipo();
         $tipo->fill($request->all());
+        $tipo->icon = $nomeArquivo;
         if ($tipo->save()){
             $request->session()->flash('mensagem_sucesso', "Tipo salvo!");
         } else {
